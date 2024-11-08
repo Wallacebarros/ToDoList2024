@@ -7,6 +7,14 @@ on:
 
 jobs:
   test-release-deploy:
+
+    permissions:
+      contents: read  # Permite ler o conteúdo do repositório (necessário para leitura de arquivos como CHANGELOG.md)
+      pull-requests: write  # Permite modificar pull requests (se necessário)
+      issues: write  # Permite editar issues, caso precise interagir com problemas durante o release
+      actions: read  # Permite ler informações de ações (necessário para o GitHub Actions interagir)
+      deployments: write  
+
     name: Test, Release, and Deploy via FTP
     runs-on: ubuntu-latest
 
@@ -26,8 +34,6 @@ jobs:
 
       - name: Run semantic-release
         if: success()
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: npx semantic-release
 
       - name: Upload to FTP
@@ -40,3 +46,5 @@ jobs:
           port: ${{ secrets.FTP_PORT }}
           local-dir: src/
           server-dir: ${{ secrets.FTP_DIR }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}

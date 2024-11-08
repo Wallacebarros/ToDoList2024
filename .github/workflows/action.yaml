@@ -2,8 +2,9 @@ name: Test, Release, and Deploy
 
 on:
   push:
-    branches:
-      - main
+    pull_request:
+      branches:
+        - main
 
 jobs:
   test-release-deploy:

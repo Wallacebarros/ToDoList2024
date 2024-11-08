@@ -25,12 +25,6 @@ jobs:
       - name: Run Jest tests
         run: npm test -- --coverage
 
-      - name: Run semantic-release
-        if: success()
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: npx semantic-release
-
       - name: Upload to FTP
         if: success()
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5

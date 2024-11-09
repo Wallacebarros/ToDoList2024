@@ -1,3 +1,5 @@
+import message from "../src/javascript/message";
+
 it('default', () => {
-    expect(1).toBe(1);
+    expect(message).toBe("To do list 2024");
 });
